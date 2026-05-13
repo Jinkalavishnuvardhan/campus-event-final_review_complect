@@ -1,0 +1,182 @@
+<!--  -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Student Dashboard</title>
+	<link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="student-page">
+	<div class="container">
+		<div class="nav" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+			<div>
+				<h2 style="margin-bottom: 5px;">Student Dashboard</h2>
+				<span>Welcome, <b th:text="${session.studentName}"></b>!</span>
+			</div>
+			<div>
+				<a href="/student/profile" style="margin: 0 15px; text-decoration: none;">👤 My Profile</a>
+				<a href="/student/logout" class="btn btn-danger">Logout</a>
+			</div>
+			<div
+				style="width: 100%; margin-top: 15px; background: var(--nav-bg); padding: 15px; border-radius: 5px; text-align: center;">
+				<!--<a href="/student/profile" style="margin: 0 15px; text-decoration: none;">👤 Profile</a>
+            <a href="/help" style="margin: 0 15px; text-decoration: none;">❓ Help</a>
+            <a href="/contact" style="margin: 0 15px; text-decoration: none;">📞 Contact</a>-->
+				<a href="/student/dashboard"
+					style="margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 1.1em; color: var(--accent-color);">📅
+					Events (Main)</a>
+
+				<a href="/student/profile" style="margin: 0 15px; text-decoration: none;">👤 Profile</a>
+				<a href="/help" style="margin: 0 15px; text-decoration: none;">❓ Help</a>
+				<a href="/contact" style="margin: 0 15px; text-decoration: none;">📞 Contact</a>
+
+			</div>
+		</div>
+
+		<div class="student-hero">
+			<h1>College Event Management System</h1>
+			<div class="hero-badge">VEL TECH UNIVERSITY</div>
+			<p class="hero-text-line">Experience the best of campus life in <span>Chennai</span> with events that
+				inspire innovation, creativity, and connection.</p>
+			<p class="hero-text-line">Join workshops, cultural festivals, tech showcases and student-led activities
+				designed for every learning journey.</p>
+			<p class="hero-text-line">Your campus, your community, your future — all in one vibrant student experience.
+			</p>
+		</div>
+
+		<section class="page-highlight" style="margin-top: 25px;">
+			<h3>Welcome to VEL TECH UNIVERSITY, Chennai</h3>
+			<p style="max-width: 800px; line-height: 1.6;">
+				VEL TECH UNIVERSITY is a leading institution located in the heart of Chennai, offering innovative
+				engineering,
+				technology and management programs designed for future-ready careers. Our campus is known for its modern
+				labs,
+				strong industry connections, active student clubs, and vibrant campus life.
+			</p>
+			<ul style="margin-top: 15px; padding-left: 20px; line-height: 1.7;">
+				<li><strong>Campus:</strong> Located in Chennai with smart classrooms, research centers, and sports
+					facilities.</li>
+				<li><strong>Academic Focus:</strong> Engineering, Technology, Design, Business and Applied Sciences.
+				</li>
+				<li><strong>Student Life:</strong> Clubs, workshops, tech fests, cultural events and leadership
+					programs.</li>
+				<li><strong>Our promise:</strong> Build skills, encourage innovation, and help every student shine in
+					the next generation of careers.</li>
+			</ul>
+		</section>
+
+		<!-- Success message popup for joining an event -->
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var msg = /*[[${msg}]]*/ null;
+			if (msg) {
+				alert(msg);
+			}
+			/*]]>*/
+		</script>
+
+		<section class="college-overview" style="margin-top: 30px;">
+			<div class="college-content">
+				<h3>Campus College Details</h3>
+				<p>
+					<span class="rainbow-text">VEL TECH UNIVERSITY</span> Chennai is a premier campus dedicated to
+					empowering students through modern infrastructure, strong industry partnerships,
+					and an active community of innovation. Our campus offers a thriving environment for academic
+					excellence, professional development, and extracurricular growth.
+				</p>
+				<ul>
+					<li><span class="rainbow-text">Location:</span> Chennai city, close to IT parks and educational
+						hubs.</li>
+					<li><span class="rainbow-text">Programs:</span> Engineering, Technology, Design, Management and
+						Research.</li>
+					<li><span class="rainbow-text">Campus Life:</span> Hackathons, cultural fests, sports, workshops,
+						and student clubs.</li>
+					<li><span class="rainbow-text">Facilities:</span> Smart classrooms, labs, library, auditorium, and
+						innovation centres.</li>
+					<li><span class="rainbow-text">Career Support:</span> Internship support, placement coaching, and
+						mentor-led learning.</li>
+				</ul>
+			</div>
+		</section>
+
+
+		<!--  -->
+
+
+
+
+		<section style="margin-top: 30px;">
+			<h3>Upcoming Campus Events</h3>
+			<p style="margin-bottom: 20px; max-width: 760px; line-height: 1.7;">Browse all events below. Tap the button
+				to join an event and see your registration status instantly.</p>
+
+			<div th:if="${events.empty}"
+				style="padding: 20px; border: 1px solid var(--border-color); border-radius: 12px; background: #fff;">
+				<p>No events are available right now. Please check back later.</p>
+			</div>
+
+			<div th:each="event : ${events}" class="event-card">
+				<img th:if="${event.imageUrl != null and !event.imageUrl.empty}" th:src="${event.imageUrl}"
+					th:alt="${event.title}" />
+				<img th:unless="${event.imageUrl != null and !event.imageUrl.empty}"
+					src="https://via.placeholder.com/300x180?text=No+Image" th:alt="${event.title}" />
+				<div class="event-info">
+					<h4 th:text="${event.title}"></h4>
+					<p th:text="${event.description}"></p>
+					<p><strong>Event ID:</strong> <span th:text="${event.id}"></span></p>
+					<p><strong>Price:</strong> <span th:text="${event.paymentAmount != null ? '₹' + event.paymentAmount : 'Free'}" style="color: #2563eb; font-weight: bold;"></span></p>
+					<p><strong>Date:</strong> <span th:text="${event.date}"></span></p>
+					<p><strong>Day:</strong> <span th:text="${event.day}"></span></p>
+					<p><strong>Time:</strong> <span th:text="${event.time}"></span></p>
+					<div style="margin-top: 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+						<div th:if="${!joinedEventIds.contains(event.id)}" style="margin-top: auto;">
+							<a th:href="@{'/student/event-payment/' + ${event.id}}" class="btn btn-primary" style="display: block; text-align: center; width: 100%; box-sizing: border-box;">
+								Interested? Join Event
+							</a>
+						</div>
+						<span th:if="${joinedEventIds.contains(event.id)}" class="btn btn-success"
+							style="cursor: default; opacity: 0.9;">Joined</span>
+
+						<button type="button" class="btn" style="background: var(--primary-btn);"
+							th:if="${event.locationAddress != null and !event.locationAddress.empty}"
+							th:onclick="'toggleLocation(' + ${event.id} + ')'">📍 Show Location Info</button>
+					</div>
+
+					<div th:id="'location-' + ${event.id}"
+						style="display: none; margin-top: 20px; padding: 15px; border-radius: 12px; background: linear-gradient(135deg, rgba(37,99,235,0.05), rgba(96,165,250,0.15)); border: 1px solid var(--accent-color);"
+						th:if="${event.locationAddress != null and !event.locationAddress.empty}">
+						<h5
+							style="color: var(--accent-color); margin-top: 0; margin-bottom: 10px; font-size: 1.1em; text-transform: uppercase;">
+							Event Address</h5>
+
+						<p style="margin: 0 0 15px 0; font-size: 0.95em; line-height: 1.6;"
+							th:utext="${#strings.replace(event.locationAddress, '&#10;', '&lt;br&gt;')}"></p>
+
+						<div th:if="${event.mapIframe != null and !event.mapIframe.empty}"
+							style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"
+							th:utext="${event.mapIframe}">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<button class="theme-toggle" onclick="document.body.classList.toggle('dark-mode');">🌓 Toggle Dark Mode</button>
+
+	<script>
+		function toggleLocation(eventId) {
+			var x = document.getElementById("location-" + eventId);
+			if (x.style.display === "none" || x.style.display === "") {
+				x.style.display = "block";
+			} else {
+				x.style.display = "none";
+			}
+		}
+	</script>
+
+</body>
+
+</html>

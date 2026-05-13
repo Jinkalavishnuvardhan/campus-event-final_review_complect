@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Admin Dashboard</title>
+	<link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="admin-page">
+	<div class="container">
+		<div class="nav" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+			<div>
+				<h2 style="margin-bottom: 5px;">Admin Dashboard</h2>
+			</div>
+			<div>
+				<a href="/admin/logout" class="btn btn-danger">Logout</a>
+			</div>
+			<div
+				style="width: 100%; margin-top: 15px; background: var(--nav-bg); padding: 15px; border-radius: 5px; text-align: center;">
+				<a href="/admin/dashboard" style="margin: 0 15px; text-decoration: none; font-weight: bold;">🏠
+					Events</a>
+				<a href="/admin/students" style="margin: 0 15px; text-decoration: none;">👥 Students</a>
+				<a href="/admin/participations" style="margin: 0 15px; text-decoration: none;">📝 Participations</a>
+			</div>
+		</div>
+
+		<h3>All Events</h3>
+		<a href="/admin/add-event" class="btn btn-success" style="margin-bottom: 20px;">+ Add New Event</a>
+
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Title</th>
+					<th>Price</th>
+					<th>Date</th>
+					<th>Day</th>
+					<th>Time</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="event : ${events}">
+					<td th:text="${event.id}"></td>
+					<td th:text="${event.title}"></td>
+					<td th:text="${event.paymentAmount != null ? '₹' + event.paymentAmount : 'Free'}"></td>
+					<td th:text="${event.date}"></td>
+					<td th:text="${event.day}"></td>
+					<td th:text="${event.time}"></td>
+					<td>
+						<a th:href="@{'/admin/event-participants/' + ${event.id}}" class="btn">View Participants</a>
+						<a th:href="@{'/admin/edit-event/' + ${event.id}}" class="btn">Edit</a>
+						<a th:href="@{'/admin/delete-event/' + ${event.id}}" class="btn btn-danger"
+							onclick="return confirm('Are you sure you want to delete this event?')">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<button class="theme-toggle" onclick="document.body.classList.toggle('dark-mode');">🌓 Toggle Dark Mode</button>
+
+</body>
+
+</html>

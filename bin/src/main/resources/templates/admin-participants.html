@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Event Participants</title>
+	<link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="admin-page">
+	<div class="container">
+		<div class="nav"
+			style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+			<div>
+				<h2>Participants for: <span th:text="${event.title}"></span> (Event ID: <span th:text="${event.id}"></span>)</h2>
+			</div>
+			<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+				<a href="/admin/dashboard" class="btn">Events</a>
+				<a href="/admin/students" class="btn">Students</a>
+				<a href="/admin/participations" class="btn">Participations</a>
+				<a href="/admin/logout" class="btn btn-danger">Logout</a>
+			</div>
+		</div>
+
+		<div th:if="${joins.empty}">
+			<p>No students have joined this event yet.</p>
+		</div>
+
+		<table th:unless="${joins.empty}">
+			<thead>
+				<tr>
+					<th>Join ID</th>
+					<th>Student ID</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Department</th>
+					<th>Amount Paid</th>
+					<th>Payment Status</th>
+					<th>Join Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="join : ${joins}">
+					<td th:text="${join.id}"></td>
+					<td th:text="${join.student.id}"></td>
+					<td th:text="${join.student.name}"></td>
+					<td th:text="${join.student.email}"></td>
+					<td th:text="${join.student.department}"></td>
+					<td th:text="${join.event.paymentAmount != null ? '₹' + join.event.paymentAmount : 'Free'}"></td>
+					<td th:text="${join.paymentStatus ?: 'Free Registration'}" th:style="${join.paymentStatus == 'Paid'} ? 'color: green; font-weight: bold;' : ''"></td>
+					<td th:text="${join.joinDate}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

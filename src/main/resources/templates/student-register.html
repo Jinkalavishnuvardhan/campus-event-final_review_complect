@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Student Registration</title>
+	<link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="auth-page">
+	<div class="container" style="max-width: 400px;">
+		<h2>Student Registration</h2>
+		
+		<div th:if="${error}" class="error" style="margin-bottom: 15px;">
+			<p th:text="${error}"></p>
+		</div>
+
+		<form action="/student/register" method="post">
+			<div class="form-group">
+				<label>Name:</label>
+				<input type="text" name="name" required>
+			</div>
+			<div class="form-group">
+				<label>Department:</label>
+				<input type="text" name="department" required>
+			</div>
+			<div class="form-group">
+				<label>Email:</label>
+				<div style="display: flex; gap: 10px;">
+					<input type="email" id="email" name="email" required style="flex: 1; min-width: 0;">
+					<button type="button" id="sendOtpBtn" class="btn btn-secondary" onclick="sendOtp()" style="width: auto; white-space: nowrap; padding: 8px 15px; font-size: 14px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">Send OTP</button>
+				</div>
+				<small id="otpMessage" style="color: green; display: none; margin-top: 5px;">OTP sent! Check your email or console.</small>
+				<small id="otpError" style="color: red; display: none; margin-top: 5px;"></small>
+			</div>
+			
+			<div class="form-group" id="otpGroup" style="display: none;">
+				<label>Enter OTP:</label>
+				<div style="display: flex; gap: 10px;">
+				    <input type="text" id="otp" name="otp" maxlength="6" pattern="\d{6}" title="Please enter a 6-digit number" placeholder="123456" style="flex: 1; min-width: 0;">
+				    <button type="button" id="verifyOtpBtn" class="btn btn-success" onclick="verifyOtpAjax()" style="width: auto; white-space: nowrap; padding: 8px 15px; font-size: 14px;">Verify</button>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label>Password:</label>
+				<input type="password" name="password" required>
+			</div>
+			<button type="submit" class="btn btn-success">Register</button>
+		</form>
+		<br>
+		<p>Already have an account? <a href="/student/login">Login here</a></p>
+		<p><a href="/">Back to Home</a></p>
+	</div>
+
+	<script>
+		function sendOtp() {
+			var email = document.getElementById('email').value;
+			if (!email) {
+				alert("Please enter your email first.");
+				return;
+			}
+			
+			var btn = document.getElementById('sendOtpBtn');
+			var msg = document.getElementById('otpMessage');
+			var err = document.getElementById('otpError');
+			var otpGroup = document.getElementById('otpGroup');
+			var otpInput = document.getElementById('otp');
+			
+			btn.disabled = true;
+			btn.innerText = "Sending...";
+			msg.style.display = 'none';
+			err.style.display = 'none';
+			
+			fetch('/student/send-otp-ajax?email=' + encodeURIComponent(email), {
+				method: 'POST'
+			})
+			.then(response => {
+				if (response.ok) {
+					msg.style.display = 'block';
+					otpGroup.style.display = 'block';
+					otpInput.required = true;
+					btn.innerText = "Resend OTP";
+					btn.disabled = false;
+					alert("Successfully sent mail!");
+				} else {
+					response.text().then(text => {
+						err.innerText = text || "Failed to send OTP.";
+						err.style.display = 'block';
+						btn.innerText = "Send OTP";
+						btn.disabled = false;
+					});
+				}
+			})
+			.catch(error => {
+				err.innerText = "An error occurred. Make sure the server is running.";
+				err.style.display = 'block';
+				btn.innerText = "Send OTP";
+				btn.disabled = false;
+			});
+		}
+		function verifyOtpAjax() {
+			var email = document.getElementById('email').value;
+			var otp = document.getElementById('otp').value;
+			if (!otp) {
+				alert("Please enter the OTP.");
+				return;
+			}
+			
+			var btn = document.getElementById('verifyOtpBtn');
+			var err = document.getElementById('otpError');
+			var msg = document.getElementById('otpMessage');
+			var otpGroup = document.getElementById('otpGroup');
+			var sendOtpBtn = document.getElementById('sendOtpBtn');
+			var emailInput = document.getElementById('email');
+			
+			btn.disabled = true;
+			btn.innerText = "Verifying...";
+			err.style.display = 'none';
+			
+			var formData = new URLSearchParams();
+			formData.append("email", email);
+			formData.append("otp", otp);
+			
+			fetch('/student/verify-otp-ajax', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				body: formData
+			})
+			.then(response => {
+				if (response.ok) {
+					// Success
+					msg.innerText = "Email Verified Successfully!";
+					msg.style.color = "green";
+					msg.style.display = 'block';
+					otpGroup.style.display = 'none';
+					sendOtpBtn.style.display = 'none';
+					emailInput.readOnly = true;
+					emailInput.style.backgroundColor = "#e9ecef";
+					alert("Successfully verified mail address!");
+				} else {
+					response.text().then(text => {
+						err.innerText = text || "Invalid OTP.";
+						err.style.display = 'block';
+						btn.innerText = "Verify";
+						btn.disabled = false;
+					});
+				}
+			})
+			.catch(error => {
+				err.innerText = "An error occurred.";
+				err.style.display = 'block';
+				btn.innerText = "Verify";
+				btn.disabled = false;
+			});
+		}
+	</script>
+</body>
+
+</html>

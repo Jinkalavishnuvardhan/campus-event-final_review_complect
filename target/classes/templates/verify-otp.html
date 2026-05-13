@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Verify OTP</title>
+	<link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+	<div class="container" style="max-width: 400px; text-align: center;">
+		<h2>Verify Email OTP</h2>
+		<p>Please enter the 6-digit OTP sent to your email to complete registration.</p>
+
+		<div th:if="${error}" style="color: red; margin-bottom: 15px;">
+			<p th:text="${error}"></p>
+		</div>
+
+		<form action="/student/verify-otp" method="post">
+			<input type="hidden" name="email" th:value="${email}">
+			<div class="form-group">
+				<label>Enter OTP:</label>
+				<input type="text" name="otp" required maxlength="6" pattern="\d{6}"
+					title="Please enter a 6-digit number">
+			</div>
+			<button type="submit" class="btn btn-success">Verify</button>
+		</form>
+		<br>
+		<p><a href="/student/login">Back to Login</a></p>
+	</div>
+</body>
+
+</html>

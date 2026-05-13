@@ -1,0 +1,171 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College Event Management System</title>
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fff; }
+        
+        /* Top dark red header */
+        .top-header { background-color: #8b0000; color: white; padding: 15px 30px; font-size: 24px; font-weight: bold; }
+        
+        /* Navbar */
+        .navbar { background-color: #6a0000; display: flex; padding: 0 20px; }
+        .navbar a { color: white; text-decoration: none; padding: 15px 20px; font-size: 13px; font-weight: bold; text-transform: uppercase; font-family: Tahoma, sans-serif; }
+        .navbar a:hover { background-color: #a40000; }
+        
+        /* Hero */
+        .hero { 
+            background: url('https://drive.google.com/file/d/1WTB3hLhaAjeAKulw15OGir5HS0NAoPdB/view?usp=drive_link/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
+            padding: 120px 20px;
+            text-align: center;
+            border-bottom: 5px solid #8b0000;
+            position: relative;
+        }
+        .hero-overlay {
+            position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(255,255,255,0.75);
+        }
+        .hero h1 { 
+            position:relative; 
+            color: #8b0000; 
+            font-size: 3.5em; 
+            margin: 0; 
+            z-index: 2; 
+            font-weight: 800; 
+        }
+
+        /* Main Content Container */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        
+        /* About Section (like Image 1) */
+        .row { display: flex; gap: 30px; margin-bottom: 50px; }
+        .col-about { flex: 2; }
+        .col-features { flex: 1; }
+        
+        .section-title { 
+            color: #888; 
+            border-bottom: 2px solid #ddd; 
+            padding-bottom: 10px; 
+            margin-bottom: 20px; 
+            text-transform: uppercase; 
+            font-size: 16px; 
+        }
+        
+        .card-grid { display: flex; gap: 20px; }
+        .card { border: 1px solid #ddd; background: white; padding: 10px; text-align: left; flex: 1; }
+        .card img { width: 100%; height: 180px; object-fit: cover; }
+        .card h4 { color: #555; margin: 10px 0 5px 0; font-weight: normal; font-size: 14px; }
+        
+        .feature-img { width: 100%; height: 220px; object-fit: cover; display: block; }
+
+        /* Alternating Grid (like Image 2) */
+        .alt-grid { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+        .grid-item { 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            text-align: center; padding: 60px; height: 350px; box-sizing: border-box; background: #fff;
+        }
+        .grid-item h3 { color: #444; font-size: 26px; margin-bottom: 15px; font-family: "Times New Roman", serif; font-weight: normal; }
+        .grid-item p { color: #666; font-size: 15px; line-height: 1.6; margin-bottom: 30px; padding: 0 20px; }
+        .grid-img { width: 100%; height: 350px; object-fit: cover; display: block; }
+        
+        .btn-outline { 
+            border: 1px solid #dca6a6; color: #dca6a6; padding: 10px 25px; 
+            text-decoration: none; text-transform: uppercase; transition: 0.3s; 
+            font-size: 14px;
+        }
+        .btn-outline:hover { background: #dca6a6; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="top-header">
+    College Event Management System
+</div>
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="#">About Project</a>
+    <a href="/student/dashboard">Events</a>
+    <a href="/student/register">Student Registration</a>
+    <a href="/student/login">Login</a>
+    <a href="/contact">Contact Us</a>
+</div>
+
+<div class="hero">
+    <div class="hero-overlay"></div>
+    <h1>College Event Management System</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-about">
+            <div class="section-title">About College Event Management System</div>
+            <div class="card-grid">
+                <div class="card">
+                    <h4>Manage Events</h4>
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Manage Events">
+                </div>
+                <div class="card">
+                    <h4>Manage Users</h4>
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Manage Users">
+                </div>
+            </div>
+        </div>
+        <div class="col-features">
+            <div class="section-title">Features</div>
+            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="feature-img" alt="Summer Party">
+        </div>
+    </div>
+</div>
+
+<div style="max-width: 1200px; margin: 0 auto; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <div class="alt-grid">
+        <!-- Row 1 
+        <div>
+            <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="grid-img">
+        </div>
+        <div class="grid-item">
+            <h3>Technical Symposiums</h3>
+            <p>Showcase your coding skills and hardware projects in our annual tech festivals. Compete with the best minds across various universities.</p>
+            <a href="/student/register" class="btn-outline">Read More</a>
+        </div>
+        
+        <!-- Row 2 -
+        <div class="grid-item" style="background:#fcfcfc;">
+            <h3>Cultural Festivals</h3>
+            <p>Experience the vibrancy of campus life through incredible dance, music, theater, and arts showcases organized by student societies.</p>
+            <a href="/student/register" class="btn-outline">Read More</a>
+        </div>
+        <div>
+            <img src="https://images.unsplash.com/photo-1533174000244-b1c90c749b57?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="grid-img">
+        </div>
+
+        <!-- Row 3 --
+        <div>
+            <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="grid-img">
+        </div>
+        <div class="grid-item">
+            <h3>Sports Tournaments</h3>
+            <p>From inter-departmental cricket matches to national-level athletic meets, join our sports events to bring glory to your department.</p>
+            <a href="/student/register" class="btn-outline">Read More</a>
+        </div>
+
+        <!-- Row 4 --
+        <div class="grid-item" style="background:#fcfcfc;">
+            <h3>Career & Alumni Meets</h3>
+            <p>Network with successful alumni and top corporate recruiters. Get a head start on your career with our exclusive campus placement drives.</p>
+            <a href="/student/register" class="btn-outline">Read More</a>
+        </div>
+        <div>
+            <img src="https://images.unsplash.com/photo-1515169067868-5387ec356754?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="grid-img">
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; padding: 40px; background: #eee; margin-top: 50px;">
+    <a href="/admin/login" style="color: #6a0000; text-decoration: none; font-weight: bold; font-family: sans-serif;">[ Admin Access Portal ]</a>
+</div>
+
+<button class="theme-toggle" onclick="document.body.classList.toggle('dark-mode');">🌓 Toggle Dark Mode</button>
+
+</body>
+</html> -->

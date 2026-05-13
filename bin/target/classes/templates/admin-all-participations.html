@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>All Participations</title>
+	<link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="admin-page">
+	<div class="container">
+		<div class="nav" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+			<div>
+				<h2 style="margin-bottom: 5px;">All Participations</h2>
+			</div>
+			<div>
+				<a href="/admin/logout" class="btn btn-danger">Logout</a>
+			</div>
+			<div
+				style="width: 100%; margin-top: 15px; background: #eee; padding: 15px; border-radius: 5px; text-align: center;">
+				<a href="/admin/dashboard" style="margin: 0 15px; text-decoration: none;">🏠 Events</a>
+				<a href="/admin/students" style="margin: 0 15px; text-decoration: none;">👥 Students</a>
+				<a href="/admin/participations"
+					style="margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 1.1em; color: #d32f2f;">📝
+					Participations</a>
+			</div>
+		</div>
+
+		<div th:if="${joins.empty}">
+			<p>No students have joined any events yet.</p>
+		</div>
+
+		<table th:unless="${joins.empty}">
+			<thead>
+				<tr>
+					<th>Join ID</th>
+					<th>Student ID</th>
+					<th>Student Name</th>
+					<th>Event ID</th>
+					<th>Event Name</th>
+					<th>Amount Paid</th>
+					<th>Payment Status</th>
+					<th>Join Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="join : ${joins}">
+					<td th:text="${join.id}"></td>
+					<td th:text="${join.student.id}"></td>
+					<td th:text="${join.student.name}"></td>
+					<td th:text="${join.event.id}"></td>
+					<td th:text="${join.event.title}"></td>
+					<td th:text="${join.event.paymentAmount != null ? '₹' + join.event.paymentAmount : 'Free'}"></td>
+					<td th:text="${join.paymentStatus ?: 'Free Registration'}" th:style="${join.paymentStatus == 'Paid'} ? 'color: green; font-weight: bold;' : ''"></td>
+					<td th:text="${join.joinDate}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

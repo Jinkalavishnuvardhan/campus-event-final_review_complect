@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Help Center</title>
+	<link rel="stylesheet" href="/style.css">
+	<style>
+		.help-box {
+			background: var(--container-bg);
+			padding: 20px;
+			border-radius: 8px;
+			border: 1px solid var(--border-color);
+			margin-top: 30px;
+			text-align: left;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container" style="text-align: center; max-width: 800px; padding: 50px;">
+		<h1>❓ Need Help?</h1>
+		<p style="font-size: 18px;">Welcome to the College Event Management Support Center.</p>
+
+		<div class="help-box">
+			<h3 style="color: var(--accent-color);">How to Join an Event?</h3>
+			<p>Login to your student dashboard, view the available events, and hit the 'Interested? Join Event' button.
+				It will instantly enroll you.</p>
+			<hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;">
+			<h3 style="color: var(--accent-color);">Can I leave an Event?</h3>
+			<p>Currently, enrollment is final to guarantee headcount for food and seating. Please contact the Admin
+				directly if you registered by mistake.</p>
+			<hr style="border: 0; border-top: 1px solid var(--border-color); margin: 20px 0;">
+			<h3 style="color: var(--accent-color);">I forgot my password!</h3>
+			<p>Please shoot an email to admin@college.edu or visit the main office on campus to have your credentials
+				reset manually.</p>
+		</div>
+		<br><br>
+		<button class="btn btn-success" onclick="history.back()">⬅️ Go Back</button>
+	</div>
+	<button class="theme-toggle" onclick="document.body.classList.toggle('dark-mode');">🌓 Toggle Theme</button>
+</body>
+
+</html>

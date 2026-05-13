@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Edit Event</title>
+	<link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="admin-page">
+	<div class="container" style="max-width: 600px;">
+		<div class="nav">
+			<h2>Edit Event</h2>
+			<a href="/admin/dashboard">Back to Dashboard</a>
+		</div>
+
+		<form th:action="@{'/admin/edit-event/' + ${event.id}}" method="post" enctype="multipart/form-data">
+			<div class="form-group">
+				<label>Title:</label>
+				<input type="text" name="title" th:value="${event.title}" required>
+			</div>
+			<div class="form-group">
+				<label>Description:</label>
+				<textarea name="description" rows="4" required th:text="${event.description}"></textarea>
+			</div>
+			<div class="form-group">
+				<label>Image URL:</label>
+				<input type="text" name="imageUrl" th:value="${event.imageUrl}"
+					placeholder="Enter image URL if not uploading">
+			</div>
+			<div class="form-group">
+				<label>Upload Image:</label>
+				<input type="file" name="imageFile" accept="image/*">
+				<small>Use either URL or upload file. Uploaded file will override the URL.</small>
+			</div>
+			<div class="form-group">
+				<label>Date:</label>
+				<input type="date" name="date" th:value="${event.date}" required>
+			</div>
+			<div class="form-group">
+				<label>Time:</label>
+				<input type="time" name="time" th:value="${event.time}" required>
+			</div>
+			<div class="form-group">
+				<label>Day:</label>
+				<select name="day" th:value="${event.day}" required
+					style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+					<option value="Monday" th:selected="${event.day == 'Monday'}">Monday</option>
+					<option value="Tuesday" th:selected="${event.day == 'Tuesday'}">Tuesday</option>
+					<option value="Wednesday" th:selected="${event.day == 'Wednesday'}">Wednesday</option>
+					<option value="Thursday" th:selected="${event.day == 'Thursday'}">Thursday</option>
+					<option value="Friday" th:selected="${event.day == 'Friday'}">Friday</option>
+					<option value="Saturday" th:selected="${event.day == 'Saturday'}">Saturday</option>
+					<option value="Sunday" th:selected="${event.day == 'Sunday'}">Sunday</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Location Address (Optional):</label>
+				<textarea name="locationAddress" rows="3" placeholder="Enter physical address details"
+					th:text="${event.locationAddress}"></textarea>
+			</div>
+			<div class="form-group">
+				<label>Google Maps Embed Code (Optional):</label>
+				<textarea name="mapIframe" rows="3" placeholder="Paste the <iframe...> code from Google Maps here"
+					th:text="${event.mapIframe}"></textarea>
+			</div>
+			<div class="form-group">
+				<label>Payment Amount (₹):</label>
+				<input type="number" step="0.01" name="paymentAmount" th:value="${event.paymentAmount}" placeholder="Leave empty for Free events">
+			</div>
+			<button type="submit" class="btn btn-success">Update Event</button>
+		</form>
+	</div>
+</body>
+
+</html>
